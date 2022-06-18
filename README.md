@@ -1,37 +1,34 @@
 # grpc-base
 
-#### 介绍
-grpc 学习，四种模式
+**gRPC 介绍**
 
-#### 软件架构
-软件架构说明
+gRPC是一个高性能开源通用rpc框架，面向移动和`HTTP/2`设计，支持多种语言
 
+基于http2标准设计，带来诸如双向流，流控，头部压缩，单tcp连接上多服用请求等特性
 
-#### 安装教程
+关键特性：超时，重试，拦截器，命名解析，负载均衡，安全连接
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+传输：`http2+protobuf `
 
-#### 使用说明
+http1.0：提供长连接，请求回应的模式
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+http1.1：pipeline，可以发送多个请求得到多个回应
 
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+http2.0：`stream传输`
 
 
-#### 特技
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+序列化： json xml msgPack `protobuf `
+
+序列化要求：解压缩要快，数据流
+
+json和xml 纯字符串，冗余信息太多了，解压缩较慢，msgPack会将k,v都压缩，而protobuf只压缩v，不压缩k，两端按数据流协议解析 
+
+
+
+**gRPC service API**
+
+1. unary api 一元普通模式，请求回应
+2. client stream api 客户端流模式，可同时发送多个请求，服务端会汇总请求然后回应
+3. server stream api 服务端流模式，客户端一个请求，服务端返回多个回应
+4. biidirectional stream api 双端流，客户端多个请求，服务端返回多个回应
